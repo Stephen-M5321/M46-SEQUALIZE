@@ -1,6 +1,6 @@
-const { sequelize } = require("sequelize");
+const { Sequelize } = require("sequelize");
 
-const connection = new sequelize(process.env.MYSQL_URL);
+const connection = new Sequelize(process.env.MYSQL_URL);
 
 connection.authenticate();
 
