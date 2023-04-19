@@ -1,6 +1,6 @@
 const Book = require("./model");
 
-const addBook = async (Req, res) => {
+const addBook = async (req, res) => {
   try {
     const book = await Book.create({
       title: req.body.title,
@@ -8,40 +8,74 @@ const addBook = async (Req, res) => {
       genre: req.body.genre,
     });
 
+    const successResponse = {
+      message: "success",
+      book: book,
+    };
+
     res.status(201).json({ message: "success", book: book });
   } catch (error) {
     console.log(error);
   }
 };
 
-const getallbooks = async (req, res) => {
+const getAllBooks = async (req, res) => {
   try {
     const books = await Book.findAll();
+
     res.status(200).json({ message: "success", books: books });
   } catch (error) {
     console.log(error);
   }
 };
 
-const deletebook = async (req, res) => {
+// await User.update(
+//   { lastName: "Doe" },
+//   {
+//     where: {
+//       lastName: null,
+//     },
+//   }
+// );
+
+// UPDATE Books.author WHERE Books.title = "michaels book"
+
+const updateBook = async (req, res) => {
   try {
-    const bookList = await Book.deleteOne({
-      title: req.body.title,
-    });
-    console.log(bookList);
-    res.status(201).json({ message: "success", book: updateBook });
+    const updateBook = await Book.update(
+      {
+        author: req.body.newAuthor,
+      },
+      {
+        where: {
+          title: req.body.title,
+        },
+      }
+    );
+
+    res.status(201).json({ message: "success", updateResult: updateBook });
   } catch (error) {
     console.log(error);
   }
 };
 
-const updatebook = async (Req, res) => {
+// await User.destroy({
+//   where: {
+//     firstName: "Jane",
+//   },
+// });
+
+const deleteBook = async (req, res) => {
   try {
-    const updatebook = await book.updateOne(
-      { title: req.body.title },
-      { author: req.body.author }
-    );
-    res.status(201).json({ message: "success", book: updatebook });
+    const { title } = req.body;
+
+    const book = await Book.destroy({
+      where: {
+        title: title,
+      },
+    });
+
+    res.status(201).json({ message: "success", result: book });
   } catch (error) {
     console.log(error);
   }
@@ -49,7 +83,7 @@ const updatebook = async (Req, res) => {
 
 module.exports = {
   addBook,
-  getallbooks,
-  deletebook,
-  updatebook,
+  getAllBooks,
+  updateBook,
+  deleteBook,
 };
