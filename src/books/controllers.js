@@ -1,5 +1,6 @@
 const Book = require("./model");
 
+//==============================================================================
 const addBook = async (req, res) => {
   try {
     const book = await Book.create({
@@ -19,6 +20,8 @@ const addBook = async (req, res) => {
   }
 };
 
+//==============================================================================
+
 const getAllBooks = async (req, res) => {
   try {
     const books = await Book.findAll();
@@ -29,16 +32,7 @@ const getAllBooks = async (req, res) => {
   }
 };
 
-// await User.update(
-//   { lastName: "Doe" },
-//   {
-//     where: {
-//       lastName: null,
-//     },
-//   }
-// );
-
-// UPDATE Books.author WHERE Books.title = "michaels book"
+//==============================================================================
 
 const updateBook = async (req, res) => {
   try {
@@ -59,11 +53,7 @@ const updateBook = async (req, res) => {
   }
 };
 
-// await User.destroy({
-//   where: {
-//     firstName: "Jane",
-//   },
-// });
+//==============================================================================
 
 const deleteBook = async (req, res) => {
   try {
@@ -81,9 +71,49 @@ const deleteBook = async (req, res) => {
   }
 };
 
+//==============================================================================
+
+const getSingleBookByTitle = async (req, res) => {
+  const { title } = req.params;
+
+  try {
+    const book = await Book.findOne({ where: { title } });
+
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    res.status(200).json({ message: "success", book });
+  } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+//============================================================================== 
+
+const deleteAllBooks = async (req, res) => {
+  try {
+    await Book.destroy({
+      where: {},
+      truncate: true
+    });
+
+    res.status(204).json({ message: "success" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//==============================================================================
+
+
 module.exports = {
   addBook,
+  getSingleBookByTitle,
   getAllBooks,
   updateBook,
   deleteBook,
+  deleteAllBooks,
 };
