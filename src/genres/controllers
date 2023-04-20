@@ -1,5 +1,14 @@
 const Genre = require("./model");
 
+//===========================================================
+
+  //      http://localhost:5001/genres/addGenre
+  // {
+  //   "title":"horror book",
+  //   "author":"scary dave",
+  //   "genre":"horror"
+  // }
+
 const addGenre = async (req, res) => {
     try {
       const genre = await Genre.create({
@@ -21,17 +30,29 @@ const addGenre = async (req, res) => {
     }
 };
 
-//===========================================================
 //module.exports = addGenre;
 // No good. exported as function but imported as object
-// changed to below |
-//                  v
+// modified version below |
+//                        v
+//===========================================================
+
+const getAllBooks = async (req, res) => {
+    try {
+      const books = await books.find({ genre: req.params.genre }
+    );
+
+    res.status(200).json({ message: "success", books: books });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 //===========================================================
 
 module.exports = {
     addGenre,
+    getAllBooks,
 };
-
 
 //===========================================================
 //module.exports = addGenre;
