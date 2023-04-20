@@ -3,9 +3,11 @@ const express = require("express");
 
 const Book = require("./books/model");
 const Author = require("./author/model");
+const Genre = require("./genre/model");
 
 const bookRouter = require("./books/routes");
 const authorRouter = require("./author/routes");
+const genreRouter = require("./genre/routes");
 
 const port = process.env.PORT || 5001;
 
@@ -19,10 +21,12 @@ const syncTables = () => {
 
   Book.sync({ alter: true });
   Author.sync();
+  Genre.sync();
 };
 
 app.use(bookRouter);
 app.use(authorRouter);
+app.use(genreRouter);
 
 app.get("/health", (req, res) => {
   res.status(200).json({ message: "App is healthy" });

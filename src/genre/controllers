@@ -1,0 +1,39 @@
+const Genre = require("./model");
+
+const addGenre = async (req, res) => {
+    try {
+      const genre = await Genre.create({
+        genre: req.body.genre,
+      });
+
+        // res.send("hello from author controllers")  <--- testing
+
+      const succceessResponse = {
+          message: "success",
+          genre: genre,
+      };
+
+    //   res.status(201).json(successResponse)
+
+    res.status(201).json({ message: "success", genre: genre });
+    } catch (error) {
+    console.log(error);
+    }
+};
+
+//===========================================================
+//module.exports = addGenre;
+// No good. exported as function but imported as object
+// changed to below |
+//                  v
+//===========================================================
+
+module.exports = {
+    addGenre,
+};
+
+
+//===========================================================
+//module.exports = addGenre;
+// No good. exported as function but imported as object
+//===========================================================
