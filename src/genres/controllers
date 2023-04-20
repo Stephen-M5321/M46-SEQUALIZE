@@ -30,23 +30,25 @@ const addGenre = async (req, res) => {
     }
 };
 
+//===========================================================
+
+const getAllBooks = async (req, res) => {
+  try {
+    const books = await books.find({ genre: req.params.genre }
+  );
+
+  res.status(200).json({ message: "success", books: books });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//===========================================================
+
 //module.exports = addGenre;
 // No good. exported as function but imported as object
 // modified version below |
 //                        v
-//===========================================================
-
-const getAllBooks = async (req, res) => {
-    try {
-      const books = await books.find({ genre: req.params.genre }
-    );
-
-    res.status(200).json({ message: "success", books: books });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
 //===========================================================
 
 module.exports = {
@@ -54,7 +56,3 @@ module.exports = {
     getAllBooks,
 };
 
-//===========================================================
-//module.exports = addGenre;
-// No good. exported as function but imported as object
-//===========================================================
