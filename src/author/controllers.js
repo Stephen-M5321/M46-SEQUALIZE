@@ -1,11 +1,22 @@
 const Author = require("./model");
+const Book = require("../books/model");
 
-//==============================================================================
+//===================================================================
+
+// http://localhost:5001/authors/addauthor
+
+// {
+//  "title":"dribly boo",
+//  "authorname":"rob didly",
+//  "genre":"doing didly",
+//  "AuthorId": 106
+// }
+//
 
 const addAuthor = async (req, res) => {
   try {
     const author = await Author.create({
-      author: req.body.author,
+      authorName: req.body.authorname,
     });
 
     const successResponse = {
@@ -13,37 +24,32 @@ const addAuthor = async (req, res) => {
       author: author,
     };
 
-    res.status(201).json({ message: "success code ", author: author });
+    res.status(201).json({ message: "success", author: author });
   } catch (error) {
     console.log(error);
   }
 };
 
-//==============================================================================
+//=================================================================== 
 
-  const getAuthor = async (req, res) => {
-    try {
-      const authorandbooks = await Author.findAll({
-        where:{
-        author: req.params.authorname,
-      },
-      });
+// http://localhost:5001/authors/getauthorandbooks/rob didly
 
-      res.status(200).json({ message: "success", books: authorandbooks });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+const getAuthorAndBooks = async (req, res) => {
+  try {
+    console.log(req.params);
 
-//==============================================================================
+    const author = await Author.findOne({
+      where: { authorname: req.params.authorname },
+      include: Book,
+    });
 
+    res.status(200).json({ message: "success", author: author });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-//==============================================================================
-
-
-
-
-  module.exports = {
-    addAuthor,
-    getAuthor,
-  };
+module.exports = {
+  addAuthor,
+  getAuthorAndBooks,
+};

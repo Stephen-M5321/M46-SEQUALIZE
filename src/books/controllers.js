@@ -2,6 +2,7 @@ const Book = require("./model");
 
 //==============================================================================
 const addBook = async (req, res) => {
+  
   try {
     const book = await Book.create({
       title: req.body.title,
@@ -23,6 +24,7 @@ const addBook = async (req, res) => {
 //==============================================================================
 
 const getAllBooks = async (req, res) => {
+
   try {
     const books = await Book.findAll();
 
@@ -35,6 +37,7 @@ const getAllBooks = async (req, res) => {
 //==============================================================================
 
 const updateBook = async (req, res) => {
+
   try {
     const updateBook = await Book.update(
       {
@@ -56,6 +59,7 @@ const updateBook = async (req, res) => {
 //==============================================================================
 
 const deleteBook = async (req, res) => {
+
   try {
     const { title } = req.body;
 
@@ -72,6 +76,9 @@ const deleteBook = async (req, res) => {
 };
 
 //==============================================================================
+
+//    http://localhost:5001/books/getsinglebookbytitle?title=walking%20in%20flip%20flops
+// server
 
 const getSingleBookByTitle = async (req, res) => {
   const { title } = req.params;
