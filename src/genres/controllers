@@ -1,4 +1,5 @@
 const Genre = require("./model");
+const Book  = require("../books/model");
 
 //===========================================================
 
@@ -34,11 +35,16 @@ const addGenre = async (req, res) => {
 
 const getAllBooks = async (req, res) => {
   try {
-    const books = await books.find({ genre: req.params.genre }
-  );
+    console.log(req.params.genre);
+    const foundBooks = await Book.findAll({ 
+      where: { genre: req.params.genre },
+  });
 
-  res.status(200).json({ message: "success", books: books });
-  } catch (error) {
+   res.status(200).json({ 
+    message: "success", book: foundBooks 
+  });
+  
+} catch (error) {
     console.log(error);
   }
 };
