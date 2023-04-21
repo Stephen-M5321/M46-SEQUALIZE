@@ -1,7 +1,7 @@
 const Genre = require("./model");
 const Book  = require("../books/model");
 
-//===========================================================
+//=========================================================
 
   //      http://localhost:5001/genres/addGenre
   // {
@@ -35,14 +35,16 @@ const addGenre = async (req, res) => {
 
 const getAllBooks = async (req, res) => {
   try {
-    console.log(req.params.genre);             //<--- testing
+    // console.log(req.params.genre);             //<--- testing
 
-    const foundBooks = await Book.findAll({ 
+    const foundGenre = await Genre.findOne({ 
       where: { genre: req.params.genre },
+      include:Book,
   });
+  console.log(foundGenre),
 
    res.status(200).json({ 
-    message: "success", book: foundBooks 
+    message: "success", book: foundGenre 
   });
   
 } catch (error) {

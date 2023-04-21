@@ -8,6 +8,8 @@ const addBook = async (req, res) => {
       title: req.body.title,
       author: req.body.author,
       genre: req.body.genre,
+      AuthorId: req.body.authorId,
+      GenreId: req.body.genreId,
     });
 
     const successResponse = {
