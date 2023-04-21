@@ -35,7 +35,8 @@ const addGenre = async (req, res) => {
 
 const getAllBooks = async (req, res) => {
   try {
-    console.log(req.params.genre);
+    console.log(req.params.genre);             //<--- testing
+
     const foundBooks = await Book.findAll({ 
       where: { genre: req.params.genre },
   });
