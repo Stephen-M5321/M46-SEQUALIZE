@@ -6,10 +6,7 @@ const Book = require("../books/model");
 // http://localhost:5001/authors/addauthor
 
 // {
-//  "title":"dribly boo",
-//  "authorname":"rob didly",
-//  "genre":"doing didly",
-//  "AuthorId": 106
+//   "authorname": "rita"
 // }
 //
 
