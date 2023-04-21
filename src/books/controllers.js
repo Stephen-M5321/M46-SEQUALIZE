@@ -1,6 +1,18 @@
 const Book = require("./model");
 
 //==============================================================================
+
+// http://localhost:5001/genres/addbooks/
+
+// {
+//   "title": "a book",
+//   "author": "robert",
+//   "genre": "horror",
+//   "authorId": 1,
+//   "genreId": 1
+// }
+
+
 const addBook = async (req, res) => {
   
   try {

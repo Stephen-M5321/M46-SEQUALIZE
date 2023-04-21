@@ -39,8 +39,12 @@ const getAllBooks = async (req, res) => {
 
     const foundGenre = await Genre.findOne({ 
       where: { genre: req.params.genre },
-      include:Book,
+      include:{
+        model: Book,
+        where: { genre: req.params.genre }
+      }
   });
+  
   console.log(foundGenre),
 
    res.status(200).json({ 
